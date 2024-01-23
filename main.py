@@ -98,6 +98,7 @@ class ConwayGrid(tk.Frame):
 
     def tick(self):
         self.update_conway()
+        self.update_count()
 
         if self.running:
             self.after(TICK, self.tick)
@@ -132,12 +133,9 @@ class ConwayGrid(tk.Frame):
         for cell in self.entries.values():
             neighbour_count = cell.neighbour_count
 
-            if self.show_neighbours:
-                cell.configure(text=f'{neighbour_count}')
-
             if cell.state == State.alive and (neighbour_count < 2 or neighbour_count > 3):
                 cell.set_new_state(State.dead)
-            elif cell.state == State.dead and neighbour_count == 2:
+            elif cell.state == State.dead and neighbour_count == 3:
                 cell.set_new_state(State.alive)
 
         for cell in self.entries.values():
